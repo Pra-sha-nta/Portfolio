@@ -1,82 +1,511 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
-    background-color: #1e1e1e ;
+body {
+    background-color: #1e1e1e;
     font-family: sans-serif;
     color: #a0a0a0;
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
-.main-container{
+.main-container {
     display: grid;
-    max-width: 1300px;
+    max-width: 1200px;
     margin: 0 auto;
     grid-template-columns: 350px 1fr;
-    gap: 40px;
+    gap: 50px;
     padding-top: 40px;
-    margin : auto;
-    
+    margin: auto;
+
 }
 
-.sidebar{
+.sidebar {
     background-color: #2A2A2A;
     height: 90vh;
     border: 1px solid #3a3a3a;
     border-radius: 16px;
     padding: 40px;
+    position: sticky;
+    top: 40px;
+
 
 
 }
 
-.main-content{
-    height: 90vh;
+.main-content {
+
     background-color: #2A2A2A;
     border: 1px solid #3a3a3a;
     border-radius: 16px;
+    padding: 40px;
 
 }
 
 /* profile section */
 
-.profile{
+.profile {
     text-align: center;
 }
 
-.profile img{
+.profile img {
     width: 120px;
     height: 120px;
     border-radius: 50%;
     border: 1px solid #3a3a3a;
-    
+
 }
 
-.profile h2{
+.profile h2 {
     font-size: 1.5rem;
     margin-top: 20px;
     color: #e0e0e0;
-    
+
 
 }
-.profile p{
-    background-color: #1e1e1e ;
+
+.profile p {
+    background-color: #1e1e1e;
     color: #FFBF00;
     margin-top: 10px;
-    padding : 5px 15px;
+    padding: 5px 15px;
     border-radius: 8px;
     border: 1px solid #3a3a3a;
     font-size: 0.8rem;
     display: inline-block;
-    
+
 }
 
 /* contact information */
 
-.contact{
+.contact {
     margin-top: 30px;
     border-top: 2px solid #3a3a3a;
-    
+    padding-top: 20px;
+
+}
+
+.label {
+
+    font-weight: 500;
+    font-size: 0.8rem;
+    color: #a0a0a0;
+}
+
+.value {
+    color: #e0e0e0;
+    text-decoration: none;
+
+}
+
+.email {
+    margin-bottom: 15px;
+}
+
+.phone {
+    margin-bottom: 15px;
+}
+
+/* social media */
+.social {
+    margin-top: 30px;
+    border-top: 2px solid #3a3a3a;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.social img {
+    height: 24px;
+    width: 24px;
+    filter: grayscale(1) invert(0.7);
+    margin-left: 5px;
+    transition: filter 0.5s ease;
+}
+
+.social img:hover {
+    filter: grayscale(0) invert(0);
+}
+
+/* main content  */
+
+/* navigation */
+
+#navigation {
+
+    border-bottom: 2px solid #3a3a3a;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+
+
+}
+
+#navigation nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+
+}
+
+#navigation nav a {
+    text-decoration: none;
+    color: #a0a0a0;
+    font-weight: 500;
+    transition: 0.3s ease;
+
+
+}
+
+#navigation nav a.active {
+    color: #FFBF00;
+}
+
+#navigation nav a:hover {
+    color: #FFBF00;
+}
+
+/* about me  */
+#about {
+    margin-bottom: 40px;
+}
+
+.heading {
+    color: #e0e0e0;
+    font-size: 2rem;
+    margin-bottom: 15px;
+
+}
+
+.line {
+    width: 60px;
+    height: 5px;
+    background-color: #FFBF00;
+    margin-bottom: 15px;
+}
+
+.content {
+    text-align: justify;
+    color: #a0a0a0;
+}
+
+/* skills section  */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 30px;
+
+
+}
+
+.item {
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    border: 1px solid #3a3a3a;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item img {
+    height: 48px;
+    width: 48px;
+    filter: invert(75%) sepia(50%) saturate(1000%) hue-rotate(350deg) brightness(110%) contrast(101%);
+    margin-bottom: 15px;
+}
+
+.item h3 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.item:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Education */
+#education {
+    margin-top: 30px;
+}
+
+.edtech {
+    padding-left: 20px;
+    position: relative;
+    margin-top: 20px;
+}
+
+.year {
+    font-size: 0.9rem;
+    color: #a0a0a0;
+    margin-bottom: 5px;
+}
+
+.degree {
+    color: #e0e0e0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.college {
+    font-style: italic;
+    color: #a0a0a0;
+    margin-bottom: 10px;
+}
+
+.work {
+
+    color: #a0a0a0;
+
+}
+
+.edfirst,
+.edsecond,
+.edthird {
+    margin-bottom: 30px;
+    position: relative;
+
+}
+
+.circle {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    border: 3px solid #FFBF00;
+    position: absolute;
+    left: -25px;
+    top: 5px;
+    z-index: 5;
+}
+
+.lining {
+    position: absolute;
+    width: 2px;
+    top: 5px;
+    bottom: 0px;
+    left: 1.25px;
+    border: 2px solid #3a3a3a;
+}
+
+/* portfolio */
+.project-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+
+.project {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    border: 1px solid #3a3a3a;
+    overflow: hidden;
+    transition: transform 0.5s ease, box-shadow 0.3s ease;
+}
+
+.project:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.3);
+
+}
+
+.project img {
+    height: 180px;
+    width: 100%;
+    object-fit: contain;
+    background-color: #f2f2f2;
+
+}
+
+.card {
+    padding: 20px;
+
+}
+
+.card h3 {
+    color: #e0e0e0;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #a0a0a0;
+    line-height: 1.6;
+    margin-bottom: 15px;
+
+}
+
+.card span {
+    background-color: rgba(255, 191, 0, 0.1);
+    color: #FFBF00;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    margin-right: 5px;
+}
+
+/* ===============================
+MOBILE RESPONSIVE
+================================= */
+
+@media (max-width: 992px) {
+
+    .main-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 20px;
+    }
+
+    .sidebar {
+        position: relative;
+        height: auto;
+        top: 0;
+    }
+
+    #navigation nav {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .sidebar,
+    .main-content {
+        padding: 20px;
+    }
+
+    .project-container {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* ===============================
+   FOOTER IMPROVED
+================================= */
+
+.footer {
+    margin-top: 60px;
+    background-color: #2A2A2A;
+    border: 1px solid #3a3a3a;
+    border-radius: 16px;
+    padding: 40px;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+}
+
+/* Headings */
+.footer-col h3,
+.footer-col h4 {
+    color: #e0e0e0;
+    margin-bottom: 15px;
+}
+
+/* Paragraph text */
+.footer-col p {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+/* Links */
+.footer-col a {
+    display: block;
+    text-decoration: none;
+    color: #a0a0a0;
+    margin-bottom: 8px;
+    transition: 0.3s ease;
+}
+
+.footer-col a:hover {
+    color: #FFBF00;
+    transform: translateX(5px);
+}
+
+/* Social Icons */
+.footer-social {
+    margin-top: 15px;
+}
+
+.footer-social a {
+    display: inline-block;
+    margin-right: 12px;
+    padding: 8px;
+    background-color: #1e1e1e;
+    border: 1px solid #3a3a3a;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.footer-social img {
+    height: 18px;
+    width: 18px;
+    filter: grayscale(1) invert(0.7);
+    transition: 0.3s ease;
+}
+
+.footer-social a:hover {
+    border-color: #FFBF00;
+    transform: translateY(-3px);
+}
+
+.footer-social a:hover img {
+    filter: grayscale(0) invert(0);
+}
+
+/* Bottom Section */
+.footer-bottom {
+
+    margin-top: 30px;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    color: #a0a0a0;
+    font-size: 0.85rem;
+}
+
+.footer-divider {
+    height: 1px;
+    background-color: #3a3a3a;
+    margin: 40px 0 20px 0;
+}
+
+
+/* Heart */
+.heart {
+    color: #FFBF00;
+}
+
+/* ===============================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 768px) {
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
 }
