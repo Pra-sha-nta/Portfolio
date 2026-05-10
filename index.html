@@ -4,31 +4,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Portfolio</title>
+    <title>Prashanta Parajuli – QA Engineer</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── QA badge pill next to role ── */
+        .qa-badge {
+            display: inline-block;
+            background: var(--accent, #4f8ef7);
+            color: #fff;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+
+        /* ── Skills: two labelled sub-grids ── */
+        .skills-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.55;
+            margin: 18px 0 10px;
+        }
+
+        .skills-label.secondary {
+            margin-top: 26px;
+        }
+
+        .grid-container.webdev-grid {
+            opacity: 0.78;           /* slightly de-emphasised */
+        }
+
+        .grid-container.webdev-grid .item h3 {
+            font-size: 0.82rem;
+        }
+
+        /* ── Experience section (mirrors Education style) ── */
+        #experience {
+            padding: 30px 0;
+        }
+
+        .exptech {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .exptech .lining {
+            position: absolute;
+            left: 0;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            background: var(--accent, #4f8ef7);
+        }
+
+        .expitem {
+            position: relative;
+            padding: 0 0 28px 24px;
+        }
+
+        .expitem .circle {
+            position: absolute;
+            left: -6px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent, #4f8ef7);
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px var(--accent, #4f8ef7);
+        }
+
+        .expitem .year {
+            font-size: 0.78rem;
+            font-weight: 600;
+            opacity: 0.55;
+            margin-bottom: 4px;
+        }
+
+        .expitem .jobtitle {
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 0 0 2px;
+        }
+
+        .expitem .company {
+            font-size: 0.88rem;
+            opacity: 0.7;
+            margin-bottom: 8px;
+        }
+
+        .expitem ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .expitem ul li {
+            font-size: 0.88rem;
+            opacity: 0.85;
+            margin-bottom: 4px;
+            line-height: 1.5;
+        }
+
+        /* ── Projects: learner framing note ── */
+        .projects-note {
+            font-size: 0.88rem;
+            opacity: 0.65;
+            margin: -6px 0 18px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+    </style>
 </head>
 
 <body>
     <div class="main-container">
-        <!-- sidebar -->
+
+        <!-- ══ SIDEBAR ══ -->
         <div class="sidebar">
-            <!-- profile  -->
             <div class="profile">
                 <img src="PP Photo.png" alt="profile">
                 <h2>Prashanta Parajuli</h2>
-                <p>Web Developer & QA Trainee</p>
-
+                <p>Associate QA Engineer <span class="qa-badge">QA</span></p>
             </div>
-            <!-- contact  -->
+
             <div class="contact">
                 <div class="email">
                     <h3 class="label">Email</h3>
                     <a class="value" href="mailto:parajuliprashant9@gmail.com">parajuliprashant9@gmail.com</a>
-
                 </div>
                 <div class="phone">
                     <h3 class="label">Phone</h3>
-                    <a class="value" href="tel:+977 9848092717"> +977 9848092717</a>
+                    <a class="value" href="tel:+9779848092717">+977 9848092717</a>
                 </div>
                 <div class="location">
                     <h3 class="label">Location</h3>
@@ -36,128 +148,200 @@
                 </div>
             </div>
 
-            <!-- social media -->
             <div class="social">
-                <a href="https://www.linkedin.com/in/prashanta-parajuli-99a366295/"><img src="linkedin.svg"
-                        alt="linkedin"></a>
+                <a href="https://www.linkedin.com/in/prashanta-parajuli-99a366295/"><img src="linkedin.svg" alt="linkedin"></a>
                 <a href="https://github.com/Pra-sha-nta"><img src="github.svg" alt="github"></a>
                 <a href="https://www.instagram.com/prashant_unscripted/"><img src="instagram.svg" alt="instagram"></a>
             </div>
-
         </div>
-        <!-- main content -->
+
+        <!-- ══ MAIN CONTENT ══ -->
         <div class="main-content">
 
-            <!-- navigation -->
+            <!-- Navigation -->
             <div id="navigation">
                 <nav>
                     <a href="#about" class="active">About</a>
                     <a href="#skills">Skills</a>
+                    <a href="#experience">Experience</a>
                     <a href="#education">Education</a>
                     <a href="#portfolio">Projects</a>
-                    <a href="cv.pdf" download class="nav-cv-btn">
-                        Download CV
-                    </a>
-
+                    <a href="cv.pdf" download class="nav-cv-btn">Download CV</a>
                 </nav>
-
             </div>
-            <!-- about me -->
+
+            <!-- ── About ── -->
             <div id="about">
                 <h2 class="heading">About Me</h2>
                 <div class="line"></div>
-                <p class="content"> I am a creative web developer with a passion for creating visually stunning and
-                    user-friendly
-                    websites. Moreover, I am also a passionate QA tester with a strong focus on ensuring the quality and
-                    functionality of web applications. I am committed to delivering high-quality work that meets the
-                    needs of clients and users.
-
+                <p class="content">
+                    I am a Junior QA Engineer and BCA student with hands-on experience in manual functional testing,
+                    test case design, bug reporting, and API testing using Postman. Currently working as an
+                    Associate QA Engineer at Ek ra Sunya Inc, I am dedicated to a long-term career in software
+                    quality assurance — ensuring every product I touch is reliable, functional, and user-ready.
+                    <br><br>
+                    Alongside my QA career, I have a genuine interest in web development as a learner — building
+                    small projects has given me a developer's perspective that makes me a more empathetic and
+                    effective tester.
                 </p>
-
             </div>
-            <!-- skills -->
+
+            <!-- ── Skills ── -->
             <div id="skills">
                 <div class="heading">Skills</div>
                 <div class="line"></div>
+
+                <!-- QA Tools & Skills -->
+                <div class="skills-label">QA Tools &amp; Testing Skills</div>
                 <div class="grid-container">
                     <div class="item">
-                        <img src="html5.svg" alt="">
+                        <img src="https://cdn.simpleicons.org/postman/FF6C37" alt="Postman" style="width:40px;height:40px;">
+                        <h3>Postman</h3>
+                    </div>
+                    <div class="item">
+                        <img src="https://cdn.simpleicons.org/jira/0052CC" alt="Jira" style="width:40px;height:40px;">
+                        <h3>Jira</h3>
+                    </div>
+                    <div class="item">
+                        <img src="https://cdn.simpleicons.org/googlechrome/4285F4" alt="DevTools" style="width:40px;height:40px;">
+                        <h3>Browser DevTools</h3>
+                    </div>
+                    <div class="item">
+                        <img src="git.svg" alt="GitHub">
+                        <h3>Git &amp; GitHub</h3>
+                    </div>
+                    <div class="item">
+                        <!-- Generic test icon using a simple inline SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        <h3>Manual Testing</h3>
+                    </div>
+                    <div class="item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                        <h3>API Testing</h3>
+                    </div>
+                </div>
+
+                <!-- Web Dev Skills (learner) -->
+                <div class="skills-label secondary">Web Development <span style="opacity:.55;font-weight:400;text-transform:none;letter-spacing:0;">(as a learner)</span></div>
+                <div class="grid-container webdev-grid">
+                    <div class="item">
+                        <img src="html5.svg" alt="HTML5">
                         <h3>HTML5</h3>
                     </div>
                     <div class="item">
-                        <img src="css.svg" alt="">
+                        <img src="css.svg" alt="CSS">
                         <h3>CSS</h3>
                     </div>
                     <div class="item">
-                        <img src="javascript.svg" alt="">
-                        <h3>Javascript</h3>
+                        <img src="javascript.svg" alt="JavaScript">
+                        <h3>JavaScript</h3>
                     </div>
                     <div class="item">
-                        <img src="git.svg" alt="">
-                        <h3>Git & Github</h3>
-                    </div>
-                    <div class="item">
-                        <img src="react.svg" alt="">
+                        <img src="react.svg" alt="React JS">
                         <h3>React JS</h3>
                     </div>
                 </div>
             </div>
-            <!-- education -->
+
+            <!-- ── Experience ── -->
+            <div id="experience">
+                <h2 class="heading">Experience</h2>
+                <div class="line"></div>
+                <div class="exptech">
+                    <div class="expitem">
+                        <div class="year">02/2026 – Present</div>
+                        <h3 class="jobtitle">Associate QA Engineer</h3>
+                        <p class="company">Ek ra Sunya Inc · Kathmandu, Nepal</p>
+                        <ul>
+                            <li>Designed and executed comprehensive test cases covering functional, regression, and edge-case scenarios; maintained RTM.</li>
+                            <li>Performed API testing using Postman — validated request/response payloads and error handling.</li>
+                            <li>Documented detailed bug reports and gained foundational exposure to automated testing.</li>
+                        </ul>
+                        <div class="circle"></div>
+                    </div>
+
+                    <div class="expitem">
+                        <div class="year">11/2025 – 02/2026</div>
+                        <h3 class="jobtitle">QA Intern</h3>
+                        <p class="company">Ek ra Sunya Inc · Kathmandu, Nepal</p>
+                        <ul>
+                            <li>Conducted manual functional and regression testing on live web applications.</li>
+                            <li>Identified, logged, and re-verified bugs in collaboration with developers through the full defect lifecycle.</li>
+                        </ul>
+                        <div class="circle"></div>
+                    </div>
+
+                    <div class="expitem">
+                        <div class="year">02/2025 – 06/2025</div>
+                        <h3 class="jobtitle">IT Intern <span style="font-weight:400;opacity:.7;font-size:.88rem;">(QA-Relevant Activities)</span></h3>
+                        <p class="company">BusinessInterest Group of Industries Ltd. · Nepal</p>
+                        <ul>
+                            <li>Reviewed two company websites and systematically identified UI/UX inconsistencies and technical errors.</li>
+                            <li>Gathered user requirements and communicated findings to the web development team.</li>
+                        </ul>
+                        <div class="circle"></div>
+                    </div>
+
+                    <div class="lining"></div>
+                </div>
+            </div>
+
+            <!-- ── Education ── -->
             <div id="education">
                 <h2 class="heading">Education</h2>
                 <div class="line"></div>
                 <div class="edtech">
                     <div class="edfirst">
-                        <div class="year">2022-Present</div>
+                        <div class="year">2022 – Present</div>
                         <h3 class="degree">Bachelor in Computer Application</h3>
-                        <p class="college"> Swoyambhu International College</p>
-                        <p class="marks">Expected Graduation Year: 2026</p>
+                        <p class="college">Swoyambhu International College</p>
+                        <p class="marks">Expected Graduation: 2026</p>
                         <div class="circle"></div>
                     </div>
-
                     <div class="edsecond">
-                        <div class="year">2019-2021</div>
+                        <div class="year">2019 – 2021</div>
                         <h3 class="degree">+2 in Science</h3>
                         <p class="college">Khwopa Secondary School</p>
                         <p class="work">CGPA: 3.21</p>
                         <div class="circle"></div>
-
                     </div>
                     <div class="edthird">
                         <div class="year">2019</div>
                         <h3 class="degree">Secondary Education Examination</h3>
-                        <p class="college"> Shree Indrenee Vidya Mandir</p>
+                        <p class="college">Shree Indrenee Vidya Mandir</p>
                         <p class="work">CGPA: 3.85</p>
                         <div class="circle"></div>
-
                     </div>
-                    <div class="lining">
-                    </div>
+                    <div class="lining"></div>
                 </div>
             </div>
-            <!-- Portfolio -->
+
+            <!-- ── Projects (Learning Projects) ── -->
             <div id="portfolio">
-                <h2 class="heading">Projects</h2>
+                <h2 class="heading">Learning Projects</h2>
                 <div class="line"></div>
+                <p class="projects-note">
+                    These projects were built as part of my web development learning journey. They reflect my
+                    developer curiosity — and have also sharpened my eye for QA, giving me practical insight
+                    into how applications are built before they're tested.
+                </p>
                 <div class="project-container">
                     <div class="project">
-                        <a href="https://github.com/Pra-sha-nta/WearShare"><img src="project_1.png" alt=""></a>
+                        <a href="https://github.com/Pra-sha-nta/WearShare"><img src="project_1.png" alt="WearShare"></a>
                         <div class="card">
                             <h3>WearShare</h3>
-                            <p>A E-commerce website for renting clothes and reselling unused clothes made using HTML,
-                                CSS, and JavaScript</p>
+                            <p>An e-commerce website for renting and reselling unused clothes, built with HTML, CSS, JavaScript, and PHP.</p>
                             <span>HTML</span>
                             <span>CSS</span>
                             <span>JS</span>
                             <span>PHP</span>
                         </div>
-
                     </div>
                     <div class="project">
-                        <a href="https://github.com/Pra-sha-nta?tab=repositories"><img src="project_2.png" alt=""></a>
+                        <a href="https://github.com/Pra-sha-nta?tab=repositories"><img src="project_2.png" alt="E-Blood"></a>
                         <div class="card">
                             <h3>E-Blood</h3>
-                            <p>A Blood donation website made using HTML, CSS, JavaScript and Laravel</p>
+                            <p>A blood donation platform built with HTML, CSS, JavaScript, and Laravel.</p>
                             <span>HTML</span>
                             <span>CSS</span>
                             <span>JS</span>
@@ -165,59 +349,47 @@
                         </div>
                     </div>
                     <div class="project">
-                        <a href="https://github.com/Pra-sha-nta/Portfolio"><img src="PP Photo.png" alt=""></a>
+                        <a href="https://github.com/Pra-sha-nta/Portfolio"><img src="PP Photo.png" alt="Portfolio"></a>
                         <div class="card">
                             <h3>Portfolio</h3>
-                            <p>A Portfolio website for me made using HTML, CSS, and JavaScript</p>
+                            <p>This personal portfolio website, built from scratch using HTML, CSS, and JavaScript.</p>
                             <span>HTML</span>
                             <span>CSS</span>
                             <span>JS</span>
-
                         </div>
                     </div>
                 </div>
-
             </div>
 
-        </div>
-    </div>
+        </div><!-- /main-content -->
+    </div><!-- /main-container -->
+
     <footer class="footer">
         <div class="footer-container">
-
             <div class="footer-col brand">
                 <h3>Prashanta Parajuli</h3>
-                <p>Web Developer & QA Trainee</p>
-
+                <p>Associate QA Engineer</p>
                 <div class="footer-social">
-                    <a href="https://www.linkedin.com/in/prashanta-parajuli-99a366295/" target="_blank">
-                        <img src="linkedin.svg" alt="LinkedIn">
-                    </a>
-                    <a href="https://github.com/Pra-sha-nta" target="_blank">
-                        <img src="github.svg" alt="GitHub">
-                    </a>
-                    <a href="https://www.instagram.com/prashant_unscripted/" target="_blank">
-                        <img src="instagram.svg" alt="Instagram">
-                    </a>
+                    <a href="https://www.linkedin.com/in/prashanta-parajuli-99a366295/" target="_blank"><img src="linkedin.svg" alt="LinkedIn"></a>
+                    <a href="https://github.com/Pra-sha-nta" target="_blank"><img src="github.svg" alt="GitHub"></a>
+                    <a href="https://www.instagram.com/prashant_unscripted/" target="_blank"><img src="instagram.svg" alt="Instagram"></a>
                 </div>
             </div>
-
             <div class="footer-col links">
                 <h4>Quick Links</h4>
                 <a href="#about">About</a>
                 <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
                 <a href="#education">Education</a>
                 <a href="#portfolio">Projects</a>
             </div>
-
             <div class="footer-col">
                 <h4>Contact</h4>
                 <p>Email: parajuliprashant9@gmail.com</p>
                 <p>Phone: +977 9848092717</p>
                 <p>Bhaktapur, Nepal</p>
             </div>
-
         </div>
-        </div> <!-- footer-container -->
 
         <div class="footer-divider"></div>
 
@@ -225,11 +397,7 @@
             <p>© 2026 Prashanta Parajuli</p>
             <p>Made with <span class="heart">❤️</span></p>
         </div>
-
-
     </footer>
 
-
 </body>
-
 </html>
