@@ -1,0 +1,155 @@
+@import 'tailwindcss';
+
+/* ───────────────────────────────────────────────────────────
+   Design tokens - "The Defect Report"
+   Three functional colours, each with a fixed meaning:
+   signal = pass / primary, severity = critical finding, trace = link.
+   ─────────────────────────────────────────────────────────── */
+@theme {
+  --color-canvas: #0a0b0d;
+  --color-surface: #141619;
+  --color-surface-2: #1c1f24;
+  --color-line: #262a31;
+  --color-ink: #f4f5f7;
+  --color-muted: #8b8f98;
+  /* 5.10:1 on canvas - the lowest value that still clears WCAG AA for small text. */
+  --color-faint: #7c828d;
+
+  --color-signal: #3ddc84;
+  --color-severity: #ff6b4a;
+  --color-trace: #5b8def;
+
+  --font-display: 'Inter Tight', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Sticky header clearance for anchor jumps. */
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: var(--color-signal);
+    color: var(--color-canvas);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Never rely on colour alone for the severity cue. */
+  abbr[title] {
+    text-decoration: none;
+  }
+}
+
+@layer components {
+  /* Mono "evidence" label used for IDs, statuses and section numbers. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+
+  .rule {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      var(--color-line) 0%,
+      var(--color-line) 60%,
+      transparent 100%
+    );
+  }
+
+  /* Fine grid texture - the "report paper" ground. */
+  .grid-field {
+    background-image:
+      linear-gradient(var(--color-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity: 0.28;
+    mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 20%, transparent 72%);
+  }
+}
+
+/* ───────────────────────────────────────────────────────────
+   Motion system
+   Elements start hidden ONLY when JS can run (.js on <html>),
+   so a JS failure can never leave content invisible.
+   ─────────────────────────────────────────────────────────── */
+@layer utilities {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  .js [data-reveal-word] > span > span {
+    display: inline-block;
+    transform: translateY(100%);
+  }
+
+  [data-reveal-word] > span {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    /* Room for descenders inside the clipping mask. */
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
+  }
+
+  .marquee-track {
+    animation: marquee 42s linear infinite;
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* Reduced motion: everything resolves instantly, nothing stays hidden. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js [data-reveal],
+  .js [data-reveal-word] > span > span {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

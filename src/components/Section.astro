@@ -1,0 +1,28 @@
+---
+interface Props {
+  id: string;
+  index: string;
+  title: string;
+  lead?: string;
+  class?: string;
+}
+const { id, index, title, lead, class: className = '' } = Astro.props;
+---
+
+<section id={id} class={`relative py-20 sm:py-28 ${className}`}>
+  <div class="mx-auto max-w-6xl px-5 sm:px-8">
+    <header data-reveal class="mb-14">
+      <div class="mb-4 flex items-center gap-4">
+        <span class="label">{index}</span>
+        <span class="rule flex-1"></span>
+      </div>
+      <h2
+        class="font-[family-name:var(--font-display)] text-[clamp(1.875rem,5vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.02em]"
+      >
+        {title}
+      </h2>
+      {lead && <p class="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{lead}</p>}
+    </header>
+    <slot />
+  </div>
+</section>

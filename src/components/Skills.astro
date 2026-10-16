@@ -1,0 +1,56 @@
+---
+import Section from './Section.astro';
+import { skillGroups, tools } from '../data/content';
+---
+
+<Section id="skills" index="04 / Skills & tools" title="How I work.">
+  <div class="grid gap-14 lg:grid-cols-[1.3fr_1fr] lg:gap-20">
+    <div data-reveal class="space-y-10">
+      {
+        skillGroups.map((group) => (
+          <div>
+            <p class="label mb-4">{group.label}</p>
+            <ul class="flex flex-wrap gap-2">
+              {group.items.map((item) => (
+                <li class="rounded-lg border border-line bg-surface px-3.5 py-2 text-sm text-muted transition-colors duration-200 hover:border-signal/40 hover:text-ink">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <div data-reveal>
+      <p class="label mb-4">Tooling</p>
+      <ul class="space-y-px overflow-hidden rounded-xl border border-line bg-line">
+        {
+          tools.map((tool) => (
+            <li class="flex items-center gap-4 bg-surface px-5 py-4">
+              {/* Monogram fallback: some tools have no Simple Icons glyph, and a
+                  broken <img> would leave a dead slot in the list. */}
+              <span
+                class="flex h-5 w-5 shrink-0 items-center justify-center rounded border border-line bg-canvas font-mono text-[0.625rem] font-medium text-muted"
+                aria-hidden="true"
+              >
+                {tool.name.charAt(0)}
+              </span>
+              <span class="flex-1 font-medium text-ink">{tool.name}</span>
+              <span
+                class={`font-mono text-[0.6875rem] tracking-[0.1em] uppercase ${
+                  'learning' in tool && tool.learning ? 'text-trace' : 'text-faint'
+                }`}
+              >
+                {tool.use}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-4 text-sm leading-relaxed text-faint">
+        Playwright is an active learning track, not production experience.
+      </p>
+    </div>
+  </div>
+</Section>

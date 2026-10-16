@@ -1,0 +1,90 @@
+---
+import { finding } from '../data/content';
+---
+
+<section id="finding" class="relative overflow-hidden py-20 sm:py-28">
+  <!-- Severity wash: the only place this colour takes over the page. -->
+  <div
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_0%,rgba(255,107,74,0.10),transparent_70%)]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative mx-auto max-w-6xl px-5 sm:px-8">
+    <div data-reveal class="mb-14">
+      <div class="mb-4 flex items-center gap-4">
+        <span class="label">03 / Selected finding</span>
+        <span class="rule flex-1"></span>
+      </div>
+      <h2
+        class="font-[family-name:var(--font-display)] text-[clamp(1.875rem,5vw,3.25rem)] font-semibold leading-[1.05] tracking-[-0.02em]"
+      >
+        The one I'd want you to read.
+      </h2>
+    </div>
+
+    <article
+      data-reveal
+      class="overflow-hidden rounded-2xl border border-severity/25 bg-surface"
+    >
+      <!-- Report header -->
+      <div
+        class="flex flex-wrap items-center gap-x-5 gap-y-3 border-b border-severity/20 bg-severity/[0.06] px-6 py-4 sm:px-9"
+      >
+        <span class="flex items-center gap-2">
+          <svg
+            class="h-4 w-4 text-severity"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"></path>
+          </svg>
+          <span class="font-mono text-xs font-medium tracking-[0.14em] text-severity uppercase">
+            Severity: {finding.severity}
+          </span>
+        </span>
+        <span class="hidden h-3 w-px bg-severity/25 sm:block" aria-hidden="true"></span>
+        <span class="font-mono text-xs tracking-[0.1em] text-muted uppercase">
+          {finding.label}
+        </span>
+      </div>
+
+      <div class="grid gap-x-16 gap-y-10 p-6 sm:p-9 lg:grid-cols-[1.5fr_1fr]">
+        <div>
+          <h3 class="text-2xl leading-snug font-semibold tracking-tight text-ink sm:text-[1.75rem]">
+            {finding.title}
+          </h3>
+          <p class="mt-6 text-lg leading-relaxed text-muted">{finding.body}</p>
+        </div>
+
+        <div class="space-y-8">
+          <div>
+            <p class="label mb-3">Resolution</p>
+            <p class="leading-relaxed text-muted">{finding.outcome}</p>
+          </div>
+          <div class="flex items-start gap-3 rounded-lg border border-line bg-surface-2 p-4">
+            <svg
+              class="mt-0.5 h-4 w-4 shrink-0 text-faint"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="3" y="11" width="18" height="11" rx="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <p class="text-sm leading-relaxed text-faint">{finding.note}</p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

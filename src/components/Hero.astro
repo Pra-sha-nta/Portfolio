@@ -1,0 +1,136 @@
+---
+import { Image } from 'astro:assets';
+import { profile, platforms } from '../data/content';
+import profilePhoto from '../assets/profile.png';
+---
+
+<section id="top" class="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
+  <div class="grid-field pointer-events-none absolute inset-0" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-6xl px-5 sm:px-8">
+    <!-- Test-run status strip -->
+    <div data-reveal class="mb-10 flex flex-wrap items-center gap-x-4 gap-y-2">
+      <span class="flex items-center gap-2 rounded-full border border-signal/30 bg-signal/10 px-3 py-1">
+        <span class="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden="true"></span>
+        <span class="font-mono text-[0.6875rem] font-medium tracking-[0.14em] text-signal uppercase">
+          Open to QA roles
+        </span>
+      </span>
+      <span class="label">{profile.location}</span>
+    </div>
+
+    <h1
+      class="font-[family-name:var(--font-display)] text-[clamp(2.75rem,10vw,7.5rem)] font-semibold leading-[0.95] tracking-[-0.03em]"
+    >
+      <span data-reveal-word class="block">Prashanta</span>
+      <span data-reveal-word class="block text-muted">Parajuli</span>
+    </h1>
+
+    <div class="mt-10 grid gap-10 lg:mt-12 lg:grid-cols-[1.35fr_1fr] lg:items-start lg:gap-16">
+      <div>
+        <p
+          data-reveal
+          data-reveal-delay="0.15"
+          class="max-w-xl text-lg leading-relaxed text-muted sm:text-xl"
+        >
+          <span class="font-medium text-ink">{profile.role}.</span>{' '}
+          {profile.intro}
+        </p>
+
+        <div data-reveal data-reveal-delay="0.25" class="mt-9 flex flex-wrap gap-3">
+          <a
+            href={profile.cv}
+            download
+            class="group inline-flex items-center gap-2.5 rounded-full bg-signal px-6 py-3.5 text-sm font-semibold text-canvas transition-transform duration-200 hover:-translate-y-0.5"
+          >
+            Download CV
+            <svg
+              class="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16" />
+            </svg>
+          </a>
+          <a
+            href="#finding"
+            class="group inline-flex items-center gap-2.5 rounded-full border border-line bg-surface px-6 py-3.5 text-sm font-semibold text-ink transition-colors hover:border-severity/50 hover:bg-surface-2"
+          >
+            <span class="h-1.5 w-1.5 rounded-full bg-severity" aria-hidden="true"></span>
+            See a finding
+          </a>
+        </div>
+      </div>
+
+      <!-- Portrait, framed as evidence -->
+      <div data-reveal data-reveal-delay="0.35" class="relative hidden lg:block">
+        <div class="relative ml-auto w-full max-w-[260px]">
+          <div
+            class="absolute -inset-px rounded-2xl bg-gradient-to-b from-line to-transparent"
+            aria-hidden="true"
+          >
+          </div>
+          <div class="relative overflow-hidden rounded-2xl border border-line bg-surface">
+            <Image
+              src={profilePhoto}
+              alt={`Portrait of ${profile.name}`}
+              width={560}
+              densities={[1, 2]}
+              class="aspect-[4/5] w-full object-cover object-top"
+              loading="eager"
+              fetchpriority="high"
+            />
+            <div
+              class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-canvas via-canvas/95 to-transparent p-4 pt-16"
+            >
+              <p class="font-mono text-[0.625rem] tracking-[0.14em] text-faint uppercase">
+                Associate QA Engineer
+              </p>
+              <p class="font-mono text-[0.625rem] tracking-[0.14em] text-signal uppercase">
+                Ek ra Sunya Inc
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Platform marquee: the systems named in the CV -->
+  <div
+    data-reveal
+    data-reveal-delay="0.45"
+    class="relative mt-20 border-y border-line/60 py-5"
+  >
+    <div
+      class="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-canvas to-transparent"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-canvas to-transparent"
+      aria-hidden="true"
+    >
+    </div>
+    <div class="flex overflow-hidden">
+      <!-- Duplicated once so the -50% translate loops seamlessly. -->
+      <ul class="marquee-track flex shrink-0 items-center gap-10 pr-10">
+        {
+          [...platforms, ...platforms].map((name) => (
+            <li class="flex shrink-0 items-center gap-10">
+              <span class="font-mono text-sm tracking-tight whitespace-nowrap text-faint">
+                {name}
+              </span>
+              <span class="h-1 w-1 rounded-full bg-line" aria-hidden="true" />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

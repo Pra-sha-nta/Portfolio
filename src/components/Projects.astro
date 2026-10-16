@@ -1,0 +1,64 @@
+---
+import Section from './Section.astro';
+import { repos, profile } from '../data/content';
+---
+
+<Section
+  id="projects"
+  index="06 / Code"
+  title="Learning in the open."
+  lead="Separate from my professional QA work: coursework builds and the JavaScript groundwork I'm doing toward test automation."
+>
+  <ul data-reveal class="grid gap-4 sm:grid-cols-2">
+    {
+      repos.map((repo) => (
+        <li data-reveal-child>
+          <a
+            href={repo.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex h-full flex-col rounded-xl border border-line bg-surface p-6 transition-colors duration-300 hover:border-trace/40 hover:bg-surface-2"
+          >
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="font-semibold tracking-tight text-ink">{repo.name}</h3>
+              <svg
+                class="h-4 w-4 shrink-0 text-faint transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-trace"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M7 17 17 7M7 7h10v10" />
+              </svg>
+            </div>
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-muted">{repo.description}</p>
+            <ul class="mt-5 flex flex-wrap gap-1.5">
+              {repo.tags.map((tag) => (
+                <li class="rounded border border-line bg-canvas px-2 py-0.5 font-mono text-[0.6875rem] text-faint">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <a
+    data-reveal
+    href={profile.links.github}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="group mt-6 inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ink"
+  >
+    All repositories on GitHub
+    <span
+      class="transition-transform duration-300 group-hover:translate-x-1"
+      aria-hidden="true">→</span
+    >
+  </a>
+</Section>
