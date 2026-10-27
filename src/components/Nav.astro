@@ -2,21 +2,21 @@
 import { nav, profile } from '../data/content';
 ---
 
-<header
-  class="fixed inset-x-0 top-0 z-40 border-b border-line/60 bg-canvas/80 backdrop-blur-xl"
->
+<header class="fixed inset-x-0 top-0 z-50">
+  <!-- Soft fade instead of a blurred bar: legible over any section, no backdrop-filter cost. -->
+  <div
+    class="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-canvas via-canvas/85 to-transparent"
+    aria-hidden="true"
+  >
+  </div>
   <nav
     aria-label="Primary"
-    class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8"
+    class="relative mx-auto flex h-16 max-w-[88rem] items-center justify-between gap-4 px-5 sm:px-8 lg:px-12"
   >
-    <a href="#top" class="group flex items-center gap-2.5 shrink-0">
-      <span class="relative flex h-2 w-2" aria-hidden="true">
-        <span class="absolute inline-flex h-full w-full rounded-full bg-signal opacity-60"></span>
-        <span class="relative inline-flex h-2 w-2 rounded-full bg-signal"></span>
-      </span>
-      <span class="font-mono text-sm font-medium tracking-tight text-ink">
-        prashanta<span class="text-faint">.qa</span>
-      </span>
+    <a href="#top" class="group flex shrink-0 items-baseline gap-2">
+      <span class="display text-2xl leading-none text-ink">PP</span>
+      <span class="label hidden text-muted sm:inline">Case file / QA</span>
+      <span class="sr-only">{profile.name}, back to top</span>
     </a>
 
     <ul class="hidden items-center gap-1 md:flex">
@@ -26,35 +26,64 @@ import { nav, profile } from '../data/content';
             <a
               href={item.href}
               data-navlink
-              class="group relative rounded-md px-3 py-2 text-sm text-muted transition-colors hover:text-ink data-[active=true]:text-ink"
+              class="relative block px-3 py-2 font-mono text-[0.75rem] tracking-[0.12em] text-muted uppercase transition-colors hover:text-ink data-[active=true]:text-ink"
             >
               {item.label}
-              <span class="absolute inset-x-3 -bottom-px h-px scale-x-0 bg-signal transition-transform duration-300 ease-[var(--ease-out-expo)] group-hover:scale-x-100 group-data-[active=true]:scale-x-100" />
+              <span
+                data-nav-bar
+                class="absolute inset-x-3 bottom-1 h-px origin-left scale-x-0 bg-sun"
+                aria-hidden="true"
+              />
             </a>
           </li>
         ))
       }
     </ul>
 
-    <a
-      href={profile.cv}
-      download
-      class="group flex shrink-0 items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-signal/50 hover:bg-surface-2"
-    >
-      <svg
-        class="h-3.5 w-3.5 text-signal transition-transform duration-300 group-hover:translate-y-0.5"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
+    <div class="flex items-center gap-2">
+      <a
+        href={profile.cv}
+        download
+        data-press
+        class="flex shrink-0 items-center gap-2 rounded-full border border-ink/25 px-4 py-2 font-mono text-[0.75rem] tracking-[0.12em] text-ink uppercase transition-colors hover:border-sun hover:text-sun"
       >
-        <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16" />
-      </svg>
-      <span class="hidden sm:inline">Download CV</span>
-      <span class="sm:hidden">CV</span>
-    </a>
+        <span class="h-1.5 w-1.5 rounded-full bg-sun" aria-hidden="true"></span>
+        CV
+      </a>
+      <button
+        type="button"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="flex items-center gap-2.5 rounded-full border border-ink/25 px-4 py-2 font-mono text-[0.75rem] tracking-[0.12em] text-ink uppercase md:hidden"
+      >
+        <span data-menu-label>Menu</span>
+        <span class="flex w-3.5 flex-col gap-1" aria-hidden="true">
+          <span data-menu-bar class="block h-px w-full bg-current"></span>
+          <span data-menu-bar class="block h-px w-full bg-current"></span>
+        </span>
+      </button>
+    </div>
   </nav>
+
+  <div
+    id="mobile-menu"
+    data-menu-panel
+    hidden
+    class="fixed inset-x-0 top-16 bottom-0 overflow-y-auto bg-canvas px-5 pt-8 pb-12 sm:px-8 md:hidden"
+  >
+    <ul class="space-y-1">
+      {
+        nav.map((item, i) => (
+          <li data-menu-item class="border-b border-line">
+            <a href={item.href} class="flex items-baseline gap-4 py-4">
+              <span class="label text-sun">{String(i + 1).padStart(2, '0')}</span>
+              <span class="display text-5xl text-ink">{item.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p data-menu-item class="label mt-10">{profile.location}</p>
+  </div>
 </header>

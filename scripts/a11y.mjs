@@ -36,6 +36,8 @@ const noOutline = await page.evaluate(() => {
   const bad = [];
   for (const el of document.querySelectorAll('a, button')) {
     el.focus();
+    // Hidden controls (closed dialog, desktop-hidden menu) cannot take focus.
+    if (document.activeElement !== el) continue;
     const s = getComputedStyle(el);
     if (s.outlineStyle === 'none' && !s.boxShadow.includes('rgb')) bad.push(el.textContent?.trim().slice(0, 30));
   }

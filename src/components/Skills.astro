@@ -1,56 +1,53 @@
 ---
 import Section from './Section.astro';
 import { skillGroups, tools } from '../data/content';
+
+const letters = ['A', 'B', 'C', 'D'];
 ---
 
-<Section id="skills" index="04 / Skills & tools" title="How I work.">
-  <div class="grid gap-14 lg:grid-cols-[1.3fr_1fr] lg:gap-20">
-    <div data-reveal class="space-y-10">
-      {
-        skillGroups.map((group) => (
-          <div>
-            <p class="label mb-4">{group.label}</p>
-            <ul class="flex flex-wrap gap-2">
-              {group.items.map((item) => (
-                <li class="rounded-lg border border-line bg-surface px-3.5 py-2 text-sm text-muted transition-colors duration-200 hover:border-signal/40 hover:text-ink">
-                  {item}
-                </li>
-              ))}
-            </ul>
+<Section id="skills" num="04" label="Method" title="How I" accent="work.">
+  <div class="grid gap-px border-y border-line bg-line md:grid-cols-3">
+    {
+      skillGroups.map((group, g) => (
+        <div data-reveal class="bg-canvas py-10 md:px-8 md:first:pl-0 md:last:pr-0">
+          <div class="flex items-baseline justify-between gap-4">
+            <p class="display text-6xl leading-none text-sun">{letters[g]}</p>
+            <p class="label">{String(group.items.length).padStart(2, '0')} disciplines</p>
           </div>
-        ))
-      }
-    </div>
+          <h3 class="mt-6 font-[family-name:var(--font-serif)] text-3xl text-ink italic">
+            {group.label}
+          </h3>
+          <ul class="mt-6 border-t border-line">
+            {group.items.map((item) => (
+              <li class="border-b border-line py-3 text-[0.9375rem] text-muted">{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
 
-    <div data-reveal>
-      <p class="label mb-4">Tooling</p>
-      <ul class="space-y-px overflow-hidden rounded-xl border border-line bg-line">
-        {
-          tools.map((tool) => (
-            <li class="flex items-center gap-4 bg-surface px-5 py-4">
-              {/* Monogram fallback: some tools have no Simple Icons glyph, and a
-                  broken <img> would leave a dead slot in the list. */}
-              <span
-                class="flex h-5 w-5 shrink-0 items-center justify-center rounded border border-line bg-canvas font-mono text-[0.625rem] font-medium text-muted"
-                aria-hidden="true"
-              >
-                {tool.name.charAt(0)}
-              </span>
-              <span class="flex-1 font-medium text-ink">{tool.name}</span>
-              <span
-                class={`font-mono text-[0.6875rem] tracking-[0.1em] uppercase ${
-                  'learning' in tool && tool.learning ? 'text-trace' : 'text-faint'
-                }`}
-              >
-                {tool.use}
-              </span>
-            </li>
-          ))
-        }
-      </ul>
-      <p class="mt-4 text-sm leading-relaxed text-faint">
-        Playwright is an active learning track, not production experience.
+  <!-- The kit -->
+  <div class="mt-20 grid gap-10 lg:grid-cols-12 lg:gap-8">
+    <div data-reveal class="lg:col-span-4">
+      <p class="label mb-4 text-sun">Kit list</p>
+      <p class="max-w-sm leading-relaxed text-muted">
+        What is on the bench every day, and what it is for. Playwright is an active learning
+        track, not production experience.
       </p>
     </div>
+    <ul class="border-t border-line lg:col-span-8">
+      {
+        tools.map((tool) => {
+          const learning = 'learning' in tool && tool.learning;
+          return (
+            <li data-reveal class="flex items-baseline justify-between gap-6 border-b border-line py-4">
+              <span class="display text-[clamp(1.75rem,3.5vw,2.75rem)] text-ink">{tool.name}</span>
+              <span class={`label text-right ${learning ? 'text-cobalt' : ''}`}>{tool.use}</span>
+            </li>
+          );
+        })
+      }
+    </ul>
   </div>
 </Section>

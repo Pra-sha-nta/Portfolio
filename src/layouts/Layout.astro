@@ -46,7 +46,7 @@ const jsonLd = {
     <title>{seo.title}</title>
     <meta name="description" content={seo.description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#0a0b0d" />
+    <meta name="theme-color" content="#0b0a08" />
     <meta name="author" content={profile.name} />
 
     <meta property="og:type" content="website" />
@@ -71,27 +71,39 @@ const jsonLd = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
     />
 
     <script is:inline set:html={JSON.stringify(jsonLd)} type="application/ld+json" />
 
-    {/* Mark JS as available before paint, so reveal states never flash or strand content. */}
+    {/* Mark JS as available before paint, so entrance states never flash.
+        Watchdog: if the motion modules have not reported in after 3s (blocked,
+        failed, very slow network), drop .js so no content stays hidden. */}
     <script is:inline>
-      document.documentElement.classList.add('js');
+      (function (h) {
+        h.classList.add('js');
+        setTimeout(function () {
+          if (!h.classList.contains('motion-ready')) h.classList.remove('js');
+        }, 3000);
+      })(document.documentElement);
     </script>
   </head>
 
   <body>
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-signal focus:px-4 focus:py-2 focus:font-medium focus:text-canvas"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-sun focus:px-4 focus:py-2 focus:font-medium focus:text-canvas"
     >
       Skip to content
     </a>
     <slot />
     <script>
-      import '../scripts/motion.ts';
+      import { onMount } from '../scripts/lifecycle';
+      import { mountCinema } from '../scripts/cinema';
+      import { mountUI } from '../scripts/ui';
+
+      onMount('cinema', mountCinema);
+      onMount('ui', mountUI);
     </script>
   </body>
 </html>

@@ -227,13 +227,23 @@ export const references = [
 ] as const;
 
 export const nav = [
-  { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Finding', href: '#finding' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Education', href: '#education' },
+  { label: 'Profile', href: '#about' },
+  { label: 'Record', href: '#experience' },
+  { label: 'Case file', href: '#finding' },
+  { label: 'Method', href: '#skills' },
+  { label: 'Learning', href: '#projects' },
   { label: 'Contact', href: '#contact' },
 ] as const;
+
+/**
+ * Contact overlay configuration. Every address is reused from `profile`, so
+ * there is exactly one place to change an email or link.
+ */
+export const contact = {
+  availability:
+    'Open to Junior, Manual and Associate QA Engineer roles, and to software testing positions in Kathmandu or remote.',
+  projectSubject: 'Project enquiry via prashantaparajuli.com.np',
+} as const;
 
 export const seo = {
   title: 'Prashanta Parajuli - Associate QA Engineer',

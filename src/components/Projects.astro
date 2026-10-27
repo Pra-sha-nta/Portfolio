@@ -5,60 +5,64 @@ import { repos, profile } from '../data/content';
 
 <Section
   id="projects"
-  index="06 / Code"
-  title="Learning in the open."
+  num="06"
+  label="Learning"
+  title="Learning in"
+  accent="the open."
   lead="Separate from my professional QA work: coursework builds and the JavaScript groundwork I'm doing toward test automation."
 >
-  <ul data-reveal class="grid gap-4 sm:grid-cols-2">
+  <ol class="border-t border-line">
     {
-      repos.map((repo) => (
-        <li data-reveal-child>
+      repos.map((repo, i) => (
+        <li data-reveal>
           <a
             href={repo.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="group flex h-full flex-col rounded-xl border border-line bg-surface p-6 transition-colors duration-300 hover:border-trace/40 hover:bg-surface-2"
+            data-row
+            class="group relative grid gap-3 border-b border-line py-8 sm:grid-cols-12 sm:items-baseline sm:gap-8"
           >
-            <div class="flex items-start justify-between gap-4">
-              <h3 class="font-semibold tracking-tight text-ink">{repo.name}</h3>
+            <span class="label sm:col-span-1">{String(i + 1).padStart(2, '0')}</span>
+            <span class="relative sm:col-span-5">
+              <span class="display block text-[clamp(2.25rem,5vw,4.25rem)] text-ink transition-colors group-hover:text-sun group-focus-visible:text-sun">
+                {repo.name}
+              </span>
+              <span
+                data-row-line
+                class="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-sun"
+                aria-hidden="true"
+              />
+            </span>
+            <span class="text-muted sm:col-span-4">{repo.description}</span>
+            <span class="flex items-center justify-between gap-4 sm:col-span-2 sm:justify-end">
+              <span class="label">{repo.tags.join(' / ')}</span>
               <svg
-                class="h-4 w-4 shrink-0 text-faint transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-trace"
+                data-row-arrow
+                class="h-5 w-5 shrink-0 text-ink"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                stroke-width="1.75"
                 aria-hidden="true"
               >
-                <path d="M7 17 17 7M7 7h10v10" />
+                <path d="M4 12h16m-6-6 6 6-6 6" />
               </svg>
-            </div>
-            <p class="mt-3 flex-1 text-sm leading-relaxed text-muted">{repo.description}</p>
-            <ul class="mt-5 flex flex-wrap gap-1.5">
-              {repo.tags.map((tag) => (
-                <li class="rounded border border-line bg-canvas px-2 py-0.5 font-mono text-[0.6875rem] text-faint">
-                  {tag}
-                </li>
-              ))}
-            </ul>
+            </span>
+            <span class="sr-only">(opens GitHub in a new tab)</span>
           </a>
         </li>
       ))
     }
-  </ul>
+  </ol>
 
   <a
     data-reveal
     href={profile.links.github}
     target="_blank"
     rel="noopener noreferrer"
-    class="group mt-6 inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-ink"
+    class="label mt-8 inline-flex items-center gap-2 text-ink underline-offset-4 hover:text-sun hover:underline"
   >
     All repositories on GitHub
-    <span
-      class="transition-transform duration-300 group-hover:translate-x-1"
-      aria-hidden="true">→</span
-    >
+    <span aria-hidden="true">↗</span>
   </a>
 </Section>

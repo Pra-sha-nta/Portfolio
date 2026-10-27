@@ -1,136 +1,209 @@
 ---
-import { Image } from 'astro:assets';
-import { profile, platforms } from '../data/content';
+import { getImage } from 'astro:assets';
+import Flashlight from './Flashlight.astro';
+import { profile, experience, tools } from '../data/content';
 import profilePhoto from '../assets/profile.png';
+
+// One optimised source, used twice: dim monochrome base + colour reveal layer.
+const portrait = await getImage({
+  src: profilePhoto,
+  widths: [400, 640, 880],
+  format: 'webp',
+  quality: 82,
+});
+const sizes = '(min-width: 1024px) 30vw, (min-width: 640px) 60vw, 90vw';
+
+const current = experience[0];
+/** First sentence of the CV profile, used as the pull quote. */
+const pullQuote = profile.intro.split(/(?<=\.)\s/)[0];
+const kit = tools.filter((t) => !('learning' in t)).slice(0, 3).map((t) => t.name);
+
+/** Evidence notes pinned to the portrait. Positions are % of the frame. */
+const notes = [
+  { n: '1', x: 50, y: 30, side: 'left', text: `${profile.name}. ${profile.role}.` },
+  { n: '2', x: 51, y: 76, side: 'right', text: `${current.company}, ${current.location}. ${current.period}.` },
+  { n: '3', x: 22, y: 88, side: 'right', text: `Kit: ${kit.join(', ')}.` },
+] as const;
 ---
 
-<section id="top" class="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
-  <div class="grid-field pointer-events-none absolute inset-0" aria-hidden="true"></div>
-
-  <div class="relative mx-auto max-w-6xl px-5 sm:px-8">
-    <!-- Test-run status strip -->
-    <div data-reveal class="mb-10 flex flex-wrap items-center gap-x-4 gap-y-2">
-      <span class="flex items-center gap-2 rounded-full border border-signal/30 bg-signal/10 px-3 py-1">
-        <span class="h-1.5 w-1.5 rounded-full bg-signal" aria-hidden="true"></span>
-        <span class="font-mono text-[0.6875rem] font-medium tracking-[0.14em] text-signal uppercase">
+<section id="top" class="relative overflow-hidden">
+  <Flashlight radius={260} softness={0.62} dim={0.4} restX={0.74} restY={0.36} intro="sweep" introDelay={1.6}>
+    <div class="relative mx-auto max-w-[88rem] px-5 pt-24 pb-16 sm:px-8 sm:pt-28 lg:px-12 lg:pb-20">
+      <!-- Caption strip -->
+      <div class="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-4">
+        <p data-hero="caption" class="label">Case file Nº 001</p>
+        <p data-hero="caption" class="label">{profile.location}</p>
+        <p data-hero="caption" class="label hidden sm:block">Software testing / QA</p>
+        <p data-hero="caption" class="label flex items-center gap-2 text-ink sm:justify-end">
+          <span class="h-1.5 w-1.5 rounded-full bg-sun" aria-hidden="true"></span>
           Open to QA roles
-        </span>
-      </span>
-      <span class="label">{profile.location}</span>
-    </div>
-
-    <h1
-      class="font-[family-name:var(--font-display)] text-[clamp(2.75rem,10vw,7.5rem)] font-semibold leading-[0.95] tracking-[-0.03em]"
-    >
-      <span data-reveal-word class="block">Prashanta</span>
-      <span data-reveal-word class="block text-muted">Parajuli</span>
-    </h1>
-
-    <div class="mt-10 grid gap-10 lg:mt-12 lg:grid-cols-[1.35fr_1fr] lg:items-start lg:gap-16">
-      <div>
-        <p
-          data-reveal
-          data-reveal-delay="0.15"
-          class="max-w-xl text-lg leading-relaxed text-muted sm:text-xl"
-        >
-          <span class="font-medium text-ink">{profile.role}.</span>{' '}
-          {profile.intro}
         </p>
-
-        <div data-reveal data-reveal-delay="0.25" class="mt-9 flex flex-wrap gap-3">
-          <a
-            href={profile.cv}
-            download
-            class="group inline-flex items-center gap-2.5 rounded-full bg-signal px-6 py-3.5 text-sm font-semibold text-canvas transition-transform duration-200 hover:-translate-y-0.5"
-          >
-            Download CV
-            <svg
-              class="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16" />
-            </svg>
-          </a>
-          <a
-            href="#finding"
-            class="group inline-flex items-center gap-2.5 rounded-full border border-line bg-surface px-6 py-3.5 text-sm font-semibold text-ink transition-colors hover:border-severity/50 hover:bg-surface-2"
-          >
-            <span class="h-1.5 w-1.5 rounded-full bg-severity" aria-hidden="true"></span>
-            See a finding
-          </a>
-        </div>
       </div>
+      <span data-hero="rule" class="rule mt-4 block" aria-hidden="true"></span>
 
-      <!-- Portrait, framed as evidence -->
-      <div data-reveal data-reveal-delay="0.35" class="relative hidden lg:block">
-        <div class="relative ml-auto w-full max-w-[260px]">
-          <div
-            class="absolute -inset-px rounded-2xl bg-gradient-to-b from-line to-transparent"
-            aria-hidden="true"
-          >
-          </div>
-          <div class="relative overflow-hidden rounded-2xl border border-line bg-surface">
-            <Image
-              src={profilePhoto}
+      <!-- Name + portrait composition -->
+      <div class="relative mt-8 lg:mt-10">
+        <h1 aria-label={profile.name} class="display relative text-[clamp(4.25rem,17.5vw,17.5rem)] leading-[0.8] text-ink lg:text-[min(15vw,15rem)]">
+          <span data-hero-line="1" class="name-line relative z-20">
+            <span data-hero-name>Prashanta</span>
+          </span>
+          <span data-hero-line="2" class="name-line relative z-20 lg:pl-[8vw]">
+            <span data-hero-name class="outline-text">Parajuli</span>
+            <span data-fl-reveal class="name-fill text-sun" aria-hidden="true">Parajuli</span>
+          </span>
+        </h1>
+
+        <!-- Portrait: behind line 2, in front of line 1 on desktop -->
+        <figure
+          data-hero-parallax
+          class="relative z-10 mt-8 w-full max-w-sm sm:max-w-md lg:absolute lg:top-[-6%] lg:right-[3%] lg:mt-0 lg:w-[29%] lg:max-w-none"
+        >
+          <div data-hero="portrait" class="relative aspect-[4/5] overflow-hidden bg-surface">
+            <img
+              src={portrait.src}
+              srcset={portrait.srcSet.attribute}
+              sizes={sizes}
               alt={`Portrait of ${profile.name}`}
-              width={560}
-              densities={[1, 2]}
-              class="aspect-[4/5] w-full object-cover object-top"
-              loading="eager"
+              width="880"
+              height="1100"
               fetchpriority="high"
+              decoding="async"
+              class="portrait-base absolute inset-0 h-full w-full object-cover object-[50%_22%]"
             />
-            <div
-              class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-canvas via-canvas/95 to-transparent p-4 pt-16"
-            >
-              <p class="font-mono text-[0.625rem] tracking-[0.14em] text-faint uppercase">
-                Associate QA Engineer
-              </p>
-              <p class="font-mono text-[0.625rem] tracking-[0.14em] text-signal uppercase">
-                Ek ra Sunya Inc
-              </p>
+            <img
+              data-fl-reveal
+              src={portrait.src}
+              srcset={portrait.srcSet.attribute}
+              sizes={sizes}
+              alt=""
+              aria-hidden="true"
+              width="880"
+              height="1100"
+              decoding="async"
+              class="absolute inset-0 h-full w-full object-cover object-[50%_22%]"
+            />
+
+            <!-- Markers: always visible, they hint there is more to find -->
+            {
+              notes.map((note) => (
+                <span
+                  data-hero="marker"
+                  class="absolute z-10 flex h-6 w-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-sun/80 bg-canvas/70 font-mono text-[0.625rem] text-sun"
+                  style={`left:${note.x}%;top:${note.y}%`}
+                  aria-hidden="true"
+                >
+                  {note.n}
+                </span>
+              ))
+            }
+
+            <!-- Annotations: under the torch only. Same facts are in the page body. -->
+            <div data-fl-reveal class="absolute inset-0 z-20" aria-hidden="true">
+              {
+                notes.map((note) => (
+                  <span
+                    class={`absolute w-max max-w-[44%] -translate-y-1/2 bg-sun px-2 py-1 font-mono text-[0.625rem] leading-snug tracking-[0.04em] text-canvas uppercase ${
+                      note.side === 'left' ? '-translate-x-[calc(100%+18px)]' : 'translate-x-[18px]'
+                    }`}
+                    style={`left:${note.x}%;top:${note.y}%`}
+                  >
+                    {note.text}
+                  </span>
+                ))
+              }
             </div>
+
+            <figcaption class="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between bg-gradient-to-t from-canvas/90 to-transparent px-3 pt-10 pb-2.5">
+              <span class="label text-ink/80">Exhibit A</span>
+              <span class="label text-ink/80">{profile.role}</span>
+            </figcaption>
           </div>
+        </figure>
+      </div>
+
+      <!-- Copy + controls -->
+      <div class="relative z-[45] mt-12 grid gap-10 lg:mt-24 lg:grid-cols-12 lg:gap-8">
+        <p data-hero="copy" class="serif-accent text-[clamp(1.75rem,3.4vw,2.75rem)] leading-[1.08] lg:col-span-5">
+          “{pullQuote}”
+        </p>
+        <div data-hero="copy" class="lg:col-span-4">
+          <p class="leading-relaxed text-muted">
+            <span class="text-ink">{profile.role} at {current.company}.</span>
+            {' '}Functional, regression, API, integration and role-based access testing across
+            multiple business platforms.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a
+              href="#finding"
+              data-press
+              class="inline-flex items-center gap-2.5 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-canvas"
+            >
+              <span class="h-1.5 w-1.5 rounded-full bg-flare" aria-hidden="true"></span>
+              Read the case file
+            </a>
+            <a
+              href={profile.cv}
+              download
+              data-press
+              class="inline-flex items-center gap-2 rounded-full border border-ink/30 px-5 py-3 text-sm font-semibold text-ink transition-colors hover:border-sun hover:text-sun"
+            >
+              Download CV
+            </a>
+          </div>
+        </div>
+        <div data-hero="copy" class="flex flex-col items-start gap-3 lg:col-span-3 lg:items-end lg:text-right">
+          <button
+            type="button"
+            data-fl-toggle
+            data-on-label="Back to torch"
+            data-off-label="Lights on"
+            aria-pressed="false"
+            data-press
+            class="inline-flex items-center gap-2 rounded-full border border-sun/50 px-4 py-2 font-mono text-[0.6875rem] tracking-[0.14em] text-sun uppercase"
+          >
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+            </svg>
+            <span data-fl-toggle-label>Lights on</span>
+          </button>
+          <p class="label max-w-[16rem]">
+            <span class="hidden [@media(pointer:fine)]:inline">Move your torch over the file.</span>
+            <span class="[@media(pointer:fine)]:hidden">Tap or drag across the file to look closer.</span>
+          </p>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Platform marquee: the systems named in the CV -->
-  <div
-    data-reveal
-    data-reveal-delay="0.45"
-    class="relative mt-20 border-y border-line/60 py-5"
-  >
-    <div
-      class="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-canvas to-transparent"
-      aria-hidden="true"
-    >
-    </div>
-    <div
-      class="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-canvas to-transparent"
-      aria-hidden="true"
-    >
-    </div>
-    <div class="flex overflow-hidden">
-      <!-- Duplicated once so the -50% translate loops seamlessly. -->
-      <ul class="marquee-track flex shrink-0 items-center gap-10 pr-10">
-        {
-          [...platforms, ...platforms].map((name) => (
-            <li class="flex shrink-0 items-center gap-10">
-              <span class="font-mono text-sm tracking-tight whitespace-nowrap text-faint">
-                {name}
-              </span>
-              <span class="h-1 w-1 rounded-full bg-line" aria-hidden="true" />
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </div>
+  </Flashlight>
 </section>
+
+<style>
+  .name-line {
+    display: block;
+    position: relative;
+    /* Room for Anton's ascenders inside the clipping box. */
+    padding-top: 0.08em;
+    overflow: hidden;
+  }
+
+  .name-fill {
+    position: absolute;
+    inset: 0;
+    padding-top: 0.08em;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 1024px) {
+    .name-fill {
+      padding-left: 8vw;
+    }
+  }
+
+  .outline-text {
+    -webkit-text-stroke-width: clamp(1px, 0.18vw, 2.5px);
+  }
+
+  .portrait-base {
+    filter: grayscale(1) contrast(1.15) brightness(0.58);
+  }
+</style>

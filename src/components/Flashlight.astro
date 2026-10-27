@@ -1,0 +1,62 @@
+---
+/**
+ * Torchlight stage. Wrap content; anything marked [data-fl-reveal] inside is
+ * only visible under the beam. Put a [data-fl-toggle] button inside to give
+ * keyboard and touch users a "lights on" switch.
+ */
+interface Props {
+  /** Max beam radius in px. Capped to 38% of the stage width at runtime. */
+  radius?: number;
+  /** 0..1 share of the beam that is feathered falloff. */
+  softness?: number;
+  /** 0..1 darkness outside the beam. Keep low: base text must stay readable. */
+  dim?: number;
+  /** Rest position as a fraction of the stage. */
+  restX?: number;
+  restY?: number;
+  intro?: 'sweep' | 'none';
+  introDelay?: number;
+  class?: string;
+}
+
+const {
+  radius = 240,
+  softness = 0.6,
+  dim = 0.38,
+  restX = 0.7,
+  restY = 0.4,
+  intro = 'none',
+  introDelay = 1.2,
+  class: className = '',
+} = Astro.props;
+---
+
+<div
+  data-flashlight
+  data-radius={radius}
+  data-softness={softness}
+  data-dim={dim}
+  data-rest-x={restX}
+  data-rest-y={restY}
+  data-intro={intro}
+  data-intro-delay={introDelay}
+  data-fl-mode="beam"
+  class={className}
+>
+  <slot />
+  <div class="fl-shade" aria-hidden="true"></div>
+  <div class="fl-glow" aria-hidden="true"></div>
+</div>
+
+<script>
+  import { onMount } from '../scripts/lifecycle';
+  import { mountFlashlight } from '../scripts/flashlight';
+
+  onMount('flashlight', () => {
+    const stops = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-flashlight]'),
+      mountFlashlight,
+    );
+    return () => stops.forEach((stop) => stop());
+  });
+</script>
