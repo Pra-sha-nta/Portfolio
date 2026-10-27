@@ -6,6 +6,16 @@
    sun = evidence / primary, flare = severity, cobalt = learning / links.
    Every text pairing below clears WCAG AA on canvas and surface.
    ─────────────────────────────────────────────────────────── */
+/* The pinned sideways reel: wide screens, motion allowed, scripts running.
+   Anything else gets the plain vertical list. */
+@custom-variant reel {
+  @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+    :where(.js) & {
+      @slot;
+    }
+  }
+}
+
 @theme {
   --color-canvas: #0b0a08;
   --color-surface: #151310;

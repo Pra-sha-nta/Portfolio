@@ -97,6 +97,8 @@ function mobileMenu(reduced: boolean): () => void {
       animate(bars[1], { y: open ? -3 : 0, rotate: open ? -45 : 0 }, t);
     }
 
+    // Keep Tab inside the visible menu: the page behind it goes inert.
+    for (const el of document.querySelectorAll<HTMLElement>('#main, body > footer')) el.inert = open;
     if (open) {
       panel.hidden = false;
       document.documentElement.style.overflow = 'hidden';

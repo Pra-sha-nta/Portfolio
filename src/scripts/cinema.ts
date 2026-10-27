@@ -18,24 +18,23 @@ const EASE = 'expo.out';
 export function mountCinema(): () => void {
   const mm = gsap.matchMedia();
 
-  mm.add(
-    {
-      motion: '(prefers-reduced-motion: no-preference)',
-      wide: '(min-width: 1024px)',
-    },
-    (context) => {
-      const { motion, wide } = context.conditions as { motion: boolean; wide: boolean };
-      if (!motion) return;
+  mm.add('(prefers-reduced-motion: no-preference)', () => {
+    heroOpening();
+    sectionHeadings();
+    reveals();
+    maskReveals();
+    rules();
+    parallax();
+  });
 
-      heroOpening();
-      sectionHeadings();
-      reveals();
-      maskReveals();
-      rules();
-      parallax();
-      if (wide) platformReel();
-    },
-  );
+  // Separate context: crossing 1024px must only rebuild the reel, never
+  // replay the hero or reset reveals. Must match the `reel:` CSS variant.
+  mm.add('(prefers-reduced-motion: no-preference) and (min-width: 1024px)', () => {
+    platformReel();
+    // The pin is created after triggers further down the page; re-order them.
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
+  });
 
   // Fonts change line breaks and heights; re-measure once they land.
   document.fonts?.ready.then(() => ScrollTrigger.refresh());

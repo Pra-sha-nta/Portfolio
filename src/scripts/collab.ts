@@ -279,6 +279,7 @@ export function mountCollaborate(): () => void {
 
   const items = () => Array.from(dialog.querySelectorAll<HTMLElement>('[data-dialog-item]'));
   let busy = false;
+  let closeQueued = false;
 
   /** The button's box as a clip-path inset, so the overlay grows out of it. */
   const fromButton = () => {
@@ -315,6 +316,11 @@ export function mountCollaborate(): () => void {
       dialog.style.clipPath = '';
     }
     busy = false;
+    // Escape pressed mid-opening: honour it now rather than dropping it.
+    if (closeQueued) {
+      closeQueued = false;
+      void closeDialog();
+    }
   }
 
   async function closeDialog() {
@@ -341,7 +347,8 @@ export function mountCollaborate(): () => void {
   // Escape: animate out instead of the instant native close.
   const onCancel = (e: Event) => {
     e.preventDefault();
-    void closeDialog();
+    if (busy) closeQueued = dialog.open;
+    else void closeDialog();
   };
   const onOpen = () => void openDialog();
   const onClose = () => void closeDialog();
