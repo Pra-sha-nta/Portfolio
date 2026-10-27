@@ -1,0 +1,50 @@
+---
+import Section from './Section.astro';
+import { about, experience, platforms } from '../data/content';
+
+/** Counts are derived from content.ts, not hand-typed, so they cannot drift. */
+const facts = [
+  { value: String(platforms.length).padStart(2, '0'), label: 'Platforms tested' },
+  { value: String(experience.length).padStart(2, '0'), label: 'QA roles held' },
+  { value: 'RTM', label: 'Traceability owned' },
+] as const;
+---
+
+<Section id="about" num="01" label="Profile" title="Quality is a question of" accent="coverage.">
+  <div class="grid gap-14 lg:grid-cols-12 lg:gap-8">
+    <p
+      data-reveal
+      class="font-[family-name:var(--font-serif)] text-[clamp(1.6rem,3vw,2.5rem)] leading-[1.15] text-ink lg:col-span-7"
+    >
+      {about.lead}
+    </p>
+
+    <div class="space-y-6 lg:col-span-4 lg:col-start-9 lg:pt-3">
+      {
+        about.body.map((para, i) => (
+          <p data-reveal class="flex gap-4 leading-relaxed text-muted">
+            <span class="label shrink-0 pt-1 text-sun">{i === 0 ? 'Focus' : 'Method'}</span>
+            <span>{para}</span>
+          </p>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Ledger of derived facts -->
+  <dl class="mt-20 grid border-t border-line sm:grid-cols-3">
+    {
+      facts.map((fact, i) => (
+        <div
+          data-reveal
+          class={`flex items-baseline justify-between gap-6 border-b border-line py-6 sm:block sm:border-b-0 sm:py-8 ${
+            i > 0 ? 'sm:border-l sm:pl-8' : ''
+          }`}
+        >
+          <dt class="label sm:mb-3">{fact.label}</dt>
+          <dd class="display text-[clamp(3rem,7vw,6rem)] leading-none text-ink">{fact.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</Section>

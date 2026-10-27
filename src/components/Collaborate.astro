@@ -1,0 +1,337 @@
+---
+import { contact, profile } from '../data/content';
+
+const strings = [0, 1, 2, 3, 4];
+/** Where each string is tied to the pill, as % of the button box. */
+const knots = [
+  { x: 6, y: 62 },
+  { x: 13, y: 88 },
+  { x: 24, y: 97 },
+  { x: 36, y: 99 },
+  { x: 48, y: 99 },
+];
+
+const mailto = `mailto:${profile.email}`;
+const projectMailto = `${mailto}?subject=${encodeURIComponent(contact.projectSubject)}`;
+
+const channels = [
+  { label: 'Email', value: profile.email, href: mailto, external: false },
+  { label: 'LinkedIn', value: 'prashanta-parajuli', href: profile.links.linkedin, external: true },
+  { label: 'GitHub', value: 'Pra-sha-nta', href: profile.links.github, external: true },
+  { label: 'Phone', value: profile.phone, href: `tel:${profile.phoneHref}`, external: false },
+];
+---
+
+<section id="contact" class="collab relative overflow-hidden bg-paper text-paper-ink" aria-labelledby="collab-title">
+  <div class="mx-auto max-w-[88rem] px-5 pt-24 sm:px-8 sm:pt-32 lg:px-12">
+    <div class="mb-6 flex items-center gap-4">
+      <span class="label !text-paper-ink">07</span>
+      <span class="label !text-paper-muted">Contact</span>
+      <span class="h-px flex-1 bg-paper-ink/15" aria-hidden="true"></span>
+    </div>
+    <div class="grid gap-8 lg:grid-cols-12 lg:items-end">
+      <h2 id="collab-title" data-split class="display text-[clamp(3rem,9vw,8rem)] lg:col-span-8">
+        Hiring for QA? <em>Let's talk.</em>
+      </h2>
+      <p class="max-w-sm leading-relaxed text-paper-muted lg:col-span-4 lg:justify-self-end">
+        {contact.availability}
+      </p>
+    </div>
+  </div>
+
+  <!-- Stage: strings sit under the hand (so they disappear into the fist) and under the button -->
+  <div data-collab-stage class="relative mt-6 h-[clamp(400px,60vh,620px)]">
+    <svg data-collab-strings class="absolute inset-0 z-10 h-full w-full overflow-visible" aria-hidden="true">
+      {
+        strings.map((i) => (
+          <path
+            class="collab-string"
+            pathLength="1"
+            fill="none"
+            stroke="#12110f"
+            stroke-width={[1.6, 1.15, 1.8, 1.25, 1.4][i]}
+            stroke-linecap="round"
+          />
+        ))
+      }
+    </svg>
+
+    <div
+      data-collab-in="hand"
+      class="absolute bottom-[4%] left-[-4%] z-20 w-[clamp(210px,34vw,420px)] sm:bottom-[-4%] sm:left-[-2%] lg:left-[3%]"
+      aria-hidden="true"
+    >
+      <div data-collab-hand class="origin-bottom-left">
+        <svg viewBox="0 0 260 260" class="block h-auto w-full overflow-visible" fill="none" stroke="#12110f" stroke-linejoin="round" stroke-linecap="round">
+          <defs>
+            <linearGradient id="skin-shade" x1="0" y1="0" x2="0.4" y2="1">
+              <stop offset="0" stop-color="#ffffff"></stop>
+              <stop offset="1" stop-color="#e6e3dc"></stop>
+            </linearGradient>
+          </defs>
+
+          <!-- Soft contact shadow under the arm -->
+          <ellipse cx="120" cy="238" rx="96" ry="10" fill="#12110f" fill-opacity="0.08" stroke="none"></ellipse>
+
+          <!-- Forearm + back of hand: one outline so there is no seam at the wrist -->
+          <path
+            d="M6 215 L98 152 C120 132 140 116 160 108 L200 165 C180 185 150 198 126 193 L34 255 Z"
+            fill="url(#skin-shade)"
+            stroke-width="3"
+          ></path>
+
+          <!-- Tendon and wrist-crease detail -->
+          <path d="M84 170 C96 166 106 160 114 152" stroke-width="1.4"></path>
+          <path d="M112 186 C118 182 122 178 126 172" stroke-width="1.2"></path>
+
+          <!-- Shadow hatching along the underside -->
+          <g stroke-width="1.1" opacity="0.85">
+            <path d="M70 230 l6 9"></path>
+            <path d="M80 223 l6 9"></path>
+            <path d="M90 216 l6 9"></path>
+            <path d="M100 209 l6 9"></path>
+            <path d="M110 202 l5 8"></path>
+            <path d="M136 192 l4 7"></path>
+            <path d="M148 189 l4 7"></path>
+            <path d="M160 184 l3 6"></path>
+          </g>
+
+          <!-- Curled fingers, drawn bottom-up so each overlaps the one below -->
+          <path d="M190 150.75 C209.1 136.2 220.2 152 200 165 Z" fill="#fff" stroke-width="2.6"></path>
+          <path d="M180 136.5 C199.1 121.9 210.2 137.8 190 150.75 Z" fill="#fff" stroke-width="2.6"></path>
+          <path d="M170 122.25 C189.1 107.6 200.2 123.5 180 136.5 Z" fill="#fff" stroke-width="2.6"></path>
+          <path d="M160 108 C179.1 93.4 190.2 109.3 170 122.25 Z" fill="#fff" stroke-width="2.6"></path>
+
+          <!-- Knuckle creases -->
+          <g stroke-width="1.2">
+            <path d="M176 128 c3 -1 6 -1 8 1"></path>
+            <path d="M186 142 c3 -1 6 -1 8 1"></path>
+            <path d="M196 156 c3 -1 6 -1 7 1"></path>
+          </g>
+
+          <!-- Thumb wrapped over the grip -->
+          <path
+            d="M118 140 C138 120 165 100 186 95 C197 93 203 103 195 110 C180 118 156 130 136 150 Z"
+            fill="#fff"
+            stroke-width="2.8"
+          ></path>
+          <path d="M183 98 C189 96.5 194 100.5 192.5 106" stroke-width="1.3"></path>
+          <path d="M146 124 c4 -3 8 -5 12 -6" stroke-width="1.1"></path>
+
+          <!-- Shirt cuff and suit sleeve -->
+          <path d="M32.6 191.9 L49.1 180.6 L81.7 227.2 L65.2 238.5 Z" fill="#fff" stroke-width="2.6"></path>
+          <path d="M40 196 L70 236" stroke-width="1" opacity="0.5"></path>
+          <circle cx="60" cy="218" r="2.2" fill="#12110f" stroke="none"></circle>
+          <path d="M30.9 189.4 L66.9 241 L-32 309 L-68 257 Z" fill="#12110f" stroke-width="2.6"></path>
+          <path d="M12 214 L40 254" stroke="#eae8e2" stroke-width="1" opacity="0.35"></path>
+          <path d="M-8 230 L16 266" stroke="#eae8e2" stroke-width="1" opacity="0.25"></path>
+
+          <!-- Grip point the strings run into. Measured at runtime. -->
+          <circle data-collab-grip cx="180" cy="106" r="0.5" fill="none" stroke="none"></circle>
+        </svg>
+      </div>
+    </div>
+
+    <div
+      data-collab-in="button"
+      class="absolute top-[30%] left-[54%] z-30 -translate-x-1/2 sm:left-[58%] lg:top-[28%] lg:left-[60%]"
+    >
+      <div data-collab-anchor class="[perspective:900px]">
+        <div data-collab-tilt class="relative [transform-style:preserve-3d]">
+          <button type="button" data-collab-button aria-haspopup="dialog" class="collab-btn">
+            <span data-collab-sheen class="collab-sheen" aria-hidden="true"></span>
+            <span class="relative">Let’s collaborate</span>
+            {knots.map((k) => <span data-collab-knot class="absolute h-px w-px" style={`left:${k.x}%;top:${k.y}%`} aria-hidden="true" />)}
+          </button>
+        </div>
+        <span data-collab-shadow class="collab-shadow" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <p class="label absolute right-5 bottom-6 z-30 hidden !text-paper-muted sm:block sm:right-8 lg:right-12">
+      Fig. 07 / Pull the strings, or just press.
+    </p>
+  </div>
+
+  <!-- Contact overlay. Native <dialog> gives focus containment and inert background. -->
+  <dialog data-contact-dialog aria-labelledby="contact-dialog-title" class="contact-dialog">
+    <div class="mx-auto flex min-h-full max-w-[88rem] flex-col px-5 py-5 sm:px-8 lg:px-12">
+      <div data-dialog-item class="flex items-center justify-between gap-4">
+        <p class="label">Contact / {profile.location}</p>
+        <button
+          type="button"
+          data-contact-close
+          class="flex items-center gap-2.5 rounded-full border border-ink/30 px-4 py-2 font-mono text-[0.75rem] tracking-[0.12em] text-ink uppercase hover:border-sun hover:text-sun"
+        >
+          Close
+          <svg class="h-3 w-3" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M1 1l10 10M11 1 1 11"></path>
+          </svg>
+          <span class="sr-only">contact panel</span>
+        </button>
+      </div>
+
+      <div class="grid flex-1 gap-12 py-12 lg:grid-cols-12 lg:items-end lg:gap-8">
+        <div class="lg:col-span-5">
+          <h2 id="contact-dialog-title" data-dialog-item class="display text-[clamp(3.5rem,10vw,9rem)] text-ink">
+            Let’s <em>talk.</em>
+          </h2>
+          <p data-dialog-item class="mt-6 max-w-md leading-relaxed text-muted">{contact.availability}</p>
+          <div data-dialog-item class="mt-10 flex flex-wrap gap-3">
+            <a
+              href={projectMailto}
+              data-press
+              class="inline-flex items-center gap-3 rounded-full bg-sun px-6 py-3.5 font-semibold text-canvas"
+            >
+              Start a project
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M4 12h16m-6-6 6 6-6 6"></path>
+              </svg>
+            </a>
+            <a
+              href={profile.cv}
+              download
+              data-press
+              class="inline-flex items-center rounded-full border border-ink/30 px-6 py-3.5 font-semibold text-ink hover:border-sun hover:text-sun"
+            >
+              Download CV
+            </a>
+          </div>
+        </div>
+
+        <ul class="border-t border-line lg:col-span-6 lg:col-start-7">
+          {
+            channels.map((c) => (
+              <li data-dialog-item class="border-b border-line">
+                <a
+                  href={c.href}
+                  {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  class="group flex items-baseline justify-between gap-6 py-5"
+                >
+                  <span class="label w-20 shrink-0">{c.label}</span>
+                  <span class="min-w-0 flex-1 truncate font-[family-name:var(--font-serif)] text-[clamp(1.4rem,3vw,2.25rem)] text-ink transition-colors group-hover:text-sun">
+                    {c.value}
+                  </span>
+                  <span class="text-muted transition-colors group-hover:text-sun" aria-hidden="true">
+                    {c.external ? '↗' : '→'}
+                  </span>
+                  {c.external && <span class="sr-only">(opens in a new tab)</span>}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </dialog>
+</section>
+
+<style>
+  #collab-title :global(em) {
+    color: var(--color-paper-ink);
+  }
+
+  .collab-btn {
+    position: relative;
+    overflow: hidden;
+    border-radius: 999px;
+    padding: 1.35em 2.6em;
+    font-family: var(--font-sans);
+    font-size: clamp(0.85rem, 1.5vw, 1.15rem);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: #f4f1ea;
+    cursor: pointer;
+    background:
+      radial-gradient(120% 160% at 50% -30%, #4a4a4a 0%, #1a1a1a 42%, #050505 100%);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.4),
+      inset 0 -3px 8px rgb(0 0 0 / 0.85),
+      inset 0 10px 18px rgb(255 255 255 / 0.06),
+      0 22px 34px -14px rgb(0 0 0 / 0.55),
+      0 6px 10px rgb(0 0 0 / 0.18);
+  }
+
+  /* Specular highlight on the upper half of the pill. */
+  .collab-btn::before {
+    content: '';
+    position: absolute;
+    inset: 3px 7% 52% 7%;
+    border-radius: 999px;
+    background: linear-gradient(to bottom, rgb(255 255 255 / 0.32), rgb(255 255 255 / 0));
+    pointer-events: none;
+  }
+
+  .collab-btn:focus-visible {
+    outline: 2px solid var(--color-paper-ink);
+    outline-offset: 5px;
+  }
+
+  .collab-sheen {
+    position: absolute;
+    inset: -20% auto -20% 0;
+    width: 40%;
+    transform: translateX(-120%) skewX(-20deg);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(255 255 255 / 0.22) 45%,
+      rgb(255 255 255 / 0.05) 70%,
+      transparent
+    );
+    pointer-events: none;
+  }
+
+  .collab-shadow {
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: -26px;
+    height: 16px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(0 0 0 / 0.22), transparent);
+    pointer-events: none;
+  }
+
+  .collab-string {
+    stroke-dasharray: 1;
+  }
+
+  .contact-dialog {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow-y: auto;
+    background: var(--color-canvas);
+    color: var(--color-ink);
+  }
+
+  .contact-dialog::backdrop {
+    background: transparent;
+  }
+
+  :global(.js) [data-collab-in] {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) [data-collab-in] {
+      opacity: 1 !important;
+    }
+  }
+</style>
+
+<script>
+  import { onMount } from '../scripts/lifecycle';
+  import { mountCollaborate } from '../scripts/collab';
+
+  onMount('collaborate', mountCollaborate);
+</script>

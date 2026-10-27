@@ -1,0 +1,41 @@
+---
+interface Props {
+  id: string;
+  /** Two-digit chapter number, e.g. "01". */
+  num: string;
+  /** Chapter name shown in the mono caption. */
+  label: string;
+  title: string;
+  /** Closing words of the title, set as a serif italic accent. */
+  accent?: string;
+  lead?: string;
+  class?: string;
+}
+const { id, num, label, title, accent, lead, class: className = '' } = Astro.props;
+---
+
+<section id={id} class={`relative py-24 sm:py-32 ${className}`}>
+  <div class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
+    <header class="mb-14 sm:mb-20">
+      <div class="mb-6 flex items-center gap-4">
+        <span class="label text-sun">{num}</span>
+        <span class="label">{label}</span>
+        <span data-rule class="rule flex-1" aria-hidden="true"></span>
+      </div>
+      <h2
+        data-split
+        class="display max-w-5xl text-[clamp(2.75rem,8vw,7rem)] text-ink"
+      >
+        {title}{accent && <> <em>{accent}</em></>}
+      </h2>
+      {
+        lead && (
+          <p data-reveal class="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
+            {lead}
+          </p>
+        )
+      }
+    </header>
+    <slot />
+  </div>
+</section>

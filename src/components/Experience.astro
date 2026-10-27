@@ -1,0 +1,66 @@
+---
+import Section from './Section.astro';
+import { experience } from '../data/content';
+
+/** "02/2026 - Present" -> "2026": the year that anchors each entry. */
+const startYear = (period: string) => period.match(/\d{4}/)?.[0] ?? '';
+---
+
+<Section
+  id="experience"
+  num="02"
+  label="Record"
+  title="Where I've"
+  accent="tested."
+  lead="Three QA roles, from website review through to role-based access and API testing on live business platforms."
+>
+  <ol class="border-t border-line">
+    {
+      experience.map((role, r) => (
+        <li class="grid gap-8 border-b border-line py-12 lg:grid-cols-12 lg:gap-8 lg:py-16">
+          <div data-reveal class="lg:col-span-4">
+            <p
+              class={`display text-[clamp(4rem,10vw,8.5rem)] leading-[0.85] ${
+                role.current ? 'text-sun' : 'outline-text'
+              }`}
+              aria-hidden="true"
+            >
+              {startYear(role.period)}
+            </p>
+            <p class="label mt-4 flex flex-wrap items-center gap-x-3 gap-y-1">
+              <span>{role.period}</span>
+              {role.current && (
+                <span class="flex items-center gap-1.5 text-sun">
+                  <span class="h-1.5 w-1.5 rounded-full bg-sun" aria-hidden="true" />
+                  Current
+                </span>
+              )}
+            </p>
+          </div>
+
+          <div class="lg:col-span-8">
+            <div data-reveal>
+              <h3 class="display text-[clamp(2rem,4vw,3.25rem)] text-ink">{role.title}</h3>
+              <p class="mt-2 font-[family-name:var(--font-serif)] text-xl text-muted italic">
+                {role.company}, {role.location}
+              </p>
+            </div>
+
+            <ol
+              class={`mt-8 grid gap-x-10 gap-y-5 ${role.points.length > 4 ? 'md:grid-cols-2' : ''}`}
+            >
+              {role.points.map((point, i) => (
+                <li data-reveal class="flex gap-4 text-[0.9375rem] leading-relaxed text-muted">
+                  <span class="label shrink-0 pt-[0.2em] text-faint">
+                    TC-{String(r + 1)}.{String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</Section>

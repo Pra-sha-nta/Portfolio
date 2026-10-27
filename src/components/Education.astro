@@ -1,0 +1,37 @@
+---
+import Section from './Section.astro';
+import { education, certifications } from '../data/content';
+---
+
+<Section id="education" num="05" label="Schooling" title="Back" accent="ground.">
+  <div class="grid gap-16 lg:grid-cols-12 lg:gap-8">
+    <ol class="border-t border-line lg:col-span-7">
+      {
+        education.map((item) => (
+          <li data-reveal class="grid grid-cols-[5.5rem_1fr] gap-4 border-b border-line py-7 sm:grid-cols-[8rem_1fr]">
+            <span class="label pt-1.5">{item.period}</span>
+            <div>
+              <h3 class="display text-[clamp(1.5rem,2.6vw,2.25rem)] text-ink">{item.qualification}</h3>
+              <p class="mt-1 font-[family-name:var(--font-serif)] text-lg text-muted italic">{item.school}</p>
+              {item.result && <p class="label mt-3 text-sun">{item.result}</p>}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="lg:col-span-4 lg:col-start-9">
+      <p data-reveal class="label mb-6 text-sun">Training & certifications</p>
+      <ul class="space-y-8">
+        {
+          certifications.map((cert) => (
+            <li data-reveal class="border-l border-sun/60 pl-5">
+              <h3 class="font-[family-name:var(--font-serif)] text-2xl text-ink">{cert.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{cert.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Section>

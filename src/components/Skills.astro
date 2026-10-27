@@ -1,0 +1,53 @@
+---
+import Section from './Section.astro';
+import { skillGroups, tools } from '../data/content';
+
+const letters = ['A', 'B', 'C', 'D'];
+---
+
+<Section id="skills" num="04" label="Method" title="How I" accent="work.">
+  <div class="grid gap-px border-y border-line bg-line md:grid-cols-3">
+    {
+      skillGroups.map((group, g) => (
+        <div data-reveal class="bg-canvas py-10 md:px-8 md:first:pl-0 md:last:pr-0">
+          <div class="flex items-baseline justify-between gap-4">
+            <p class="display text-6xl leading-none text-sun">{letters[g]}</p>
+            <p class="label">{String(group.items.length).padStart(2, '0')} disciplines</p>
+          </div>
+          <h3 class="mt-6 font-[family-name:var(--font-serif)] text-3xl text-ink italic">
+            {group.label}
+          </h3>
+          <ul class="mt-6 border-t border-line">
+            {group.items.map((item) => (
+              <li class="border-b border-line py-3 text-[0.9375rem] text-muted">{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- The kit -->
+  <div class="mt-20 grid gap-10 lg:grid-cols-12 lg:gap-8">
+    <div data-reveal class="lg:col-span-4">
+      <p class="label mb-4 text-sun">Kit list</p>
+      <p class="max-w-sm leading-relaxed text-muted">
+        What is on the bench every day, and what it is for. Playwright is an active learning
+        track, not production experience.
+      </p>
+    </div>
+    <ul class="border-t border-line lg:col-span-8">
+      {
+        tools.map((tool) => {
+          const learning = 'learning' in tool && tool.learning;
+          return (
+            <li data-reveal class="flex items-baseline justify-between gap-6 border-b border-line py-4">
+              <span class="display text-[clamp(1.75rem,3.5vw,2.75rem)] text-ink">{tool.name}</span>
+              <span class={`label text-right ${learning ? 'text-cobalt' : ''}`}>{tool.use}</span>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</Section>

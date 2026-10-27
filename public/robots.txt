@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.prashantaparajuli.com.np/sitemap-index.xml

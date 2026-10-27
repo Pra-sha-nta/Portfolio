@@ -1,0 +1,109 @@
+---
+import '../styles/global.css';
+import { profile, seo } from '../data/content';
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(seo.ogImage, Astro.site).href;
+
+/** Schema.org Person - lets search engines read the role and employer directly. */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  jobTitle: profile.role,
+  email: `mailto:${profile.email}`,
+  telephone: profile.phoneHref,
+  url: profile.site,
+  image: ogImage,
+  description: seo.description,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Bhaktapur',
+    addressCountry: 'NP',
+  },
+  worksFor: { '@type': 'Organization', name: 'Ek ra Sunya Inc' },
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Swoyambhu International College (Tribhuvan University)',
+  },
+  knowsAbout: [
+    'Software Testing',
+    'Quality Assurance',
+    'Manual Testing',
+    'API Testing',
+    'Regression Testing',
+    'Role-Based Access Control Testing',
+  ],
+  sameAs: [profile.links.linkedin, profile.links.github],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{seo.title}</title>
+    <meta name="description" content={seo.description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#0b0a08" />
+    <meta name="author" content={profile.name} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:title" content={seo.title} />
+    <meta property="og:description" content={seo.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${profile.name} - ${profile.role}`} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={seo.title} />
+    <meta name="twitter:description" content={seo.description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+
+    <script is:inline set:html={JSON.stringify(jsonLd)} type="application/ld+json" />
+
+    {/* Mark JS as available before paint, so entrance states never flash.
+        Watchdog: if the motion modules have not reported in after 3s (blocked,
+        failed, very slow network), drop .js so no content stays hidden. */}
+    <script is:inline>
+      (function (h) {
+        h.classList.add('js');
+        setTimeout(function () {
+          if (!h.classList.contains('motion-ready')) h.classList.remove('js');
+        }, 3000);
+      })(document.documentElement);
+    </script>
+  </head>
+
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-sun focus:px-4 focus:py-2 focus:font-medium focus:text-canvas"
+    >
+      Skip to content
+    </a>
+    <slot />
+    <script>
+      import { onMount } from '../scripts/lifecycle';
+      import { mountCinema } from '../scripts/cinema';
+      import { mountUI } from '../scripts/ui';
+
+      onMount('cinema', mountCinema);
+      onMount('ui', mountUI);
+    </script>
+  </body>
+</html>

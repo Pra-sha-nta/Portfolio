@@ -1,0 +1,114 @@
+---
+import Flashlight from './Flashlight.astro';
+import { finding } from '../data/content';
+
+/**
+ * Evidence plate rows. A schematic only: every value is redacted, the real
+ * endpoint and payload are withheld, and the plate says so.
+ */
+const rows = [
+  { k: 'Access', v: 'Public API response' },
+  { k: 'Caller', v: 'Unauthenticated' },
+  { k: 'Payload', v: 'Redacted' },
+] as const;
+---
+
+<section id="finding" class="relative overflow-hidden py-24 sm:py-32">
+  <div class="mx-auto max-w-[88rem] px-5 sm:px-8 lg:px-12">
+    <header class="mb-14 sm:mb-20">
+      <div class="mb-6 flex items-center gap-4">
+        <span class="label text-sun">03</span>
+        <span class="label">Case file</span>
+        <span data-rule class="rule flex-1" aria-hidden="true"></span>
+      </div>
+      <h2 data-split class="display max-w-5xl text-[clamp(2.75rem,8vw,7rem)] text-ink">
+        The one I'd want you <em>to read.</em>
+      </h2>
+    </header>
+
+    <div class="grid gap-14 lg:grid-cols-12 lg:gap-8">
+      <!-- The written case: always fully readable -->
+      <article class="lg:col-span-6">
+        <p data-reveal class="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span class="inline-flex items-center gap-2 bg-flare px-2.5 py-1 font-mono text-[0.6875rem] font-medium tracking-[0.14em] text-canvas uppercase">
+            Severity: {finding.severity}
+          </span>
+          <span class="label text-muted">{finding.label}</span>
+        </p>
+        <h3 data-reveal class="mt-8 font-[family-name:var(--font-serif)] text-[clamp(1.9rem,3.2vw,2.75rem)] leading-[1.1] text-ink">
+          {finding.title}
+        </h3>
+        <p data-reveal class="mt-8 text-lg leading-relaxed text-muted">{finding.body}</p>
+
+        <div data-reveal class="mt-10 grid gap-6 border-t border-line pt-8 sm:grid-cols-2">
+          <div>
+            <p class="label mb-3 text-sun">Resolution</p>
+            <p class="leading-relaxed text-muted">{finding.outcome}</p>
+          </div>
+          <div>
+            <p class="label mb-3">Disclosure</p>
+            <p class="text-sm leading-relaxed text-faint">{finding.note}</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Evidence plate: the torch shows where the problem was -->
+      <div data-reveal class="lg:col-span-5 lg:col-start-8">
+        <Flashlight radius={170} softness={0.55} dim={0.5} restX={0.55} restY={0.66}>
+          <figure class="relative overflow-hidden border border-line bg-surface p-6 font-mono text-[0.8125rem] sm:p-8">
+            <div class="flex items-center justify-between border-b border-line pb-4">
+              <span class="label">Exhibit B / Response</span>
+              <span class="label text-flare">Public</span>
+            </div>
+
+            <dl class="mt-6 space-y-2.5">
+              {
+                rows.map((row) => (
+                  <div class="grid grid-cols-[6.5rem_1fr] gap-3">
+                    <dt class="text-faint">{row.k}</dt>
+                    <dd class="text-ink">{row.v}</dd>
+                  </div>
+                ))
+              }
+            </dl>
+
+            <div class="relative mt-6 leading-7 text-muted" aria-hidden="true">
+              <p>{'{'}</p>
+              <p class="pl-5"><span class="inline-block h-2.5 w-14 bg-line align-middle"></span>: <span class="inline-block h-2.5 w-24 bg-line align-middle"></span>,</p>
+              <p class="pl-5"><span class="inline-block h-2.5 w-10 bg-line align-middle"></span>: <span class="inline-block h-2.5 w-32 bg-line align-middle"></span>,</p>
+              <p class="relative pl-5">
+                <span class="inline-block h-2.5 w-20 bg-line align-middle"></span>: <span class="inline-block h-2.5 w-40 max-w-[55%] bg-line align-middle"></span>
+                <!-- Revealed under the beam -->
+                <span data-fl-reveal class="absolute inset-y-[-6px] right-[-10px] left-3 border-2 border-flare"></span>
+              </p>
+              <p>{'}'}</p>
+            </div>
+
+            <div data-fl-reveal class="mt-6 border-l-2 border-flare pl-4" aria-hidden="true">
+              <p class="text-[0.75rem] leading-relaxed tracking-[0.04em] text-flare uppercase">
+                Privileged authentication data.<br />No unauthenticated caller should receive this.
+              </p>
+              <p class="mt-3 inline-block -rotate-2 border border-sun px-2 py-0.5 text-[0.6875rem] tracking-[0.16em] text-sun uppercase">
+                Retested · Verified after fix
+              </p>
+            </div>
+
+            <figcaption class="mt-6 flex items-start justify-between gap-6 border-t border-line pt-4 text-[0.6875rem] leading-relaxed text-faint">
+              <span>Schematic only. The real endpoint, fields and client are withheld.</span>
+              <button
+                type="button"
+                data-fl-toggle
+                data-on-label="Torch"
+                data-off-label="Reveal"
+                aria-pressed="false"
+                class="shrink-0 tracking-[0.14em] text-sun uppercase underline-offset-4 hover:underline"
+              >
+                <span data-fl-toggle-label>Reveal</span>
+              </button>
+            </figcaption>
+          </figure>
+        </Flashlight>
+      </div>
+    </div>
+  </div>
+</section>
